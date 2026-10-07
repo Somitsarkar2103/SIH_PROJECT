@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CT Naksha – Technical Approach</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+  }
+
+  .slide {
+    width: 1280px; height: 720px;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    position: relative; overflow: hidden;
+    page-break-after: always;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px 14px; background: #fff;
+  }
+  .logo-box {
+    border: 2px solid #333; border-radius: 8px;
+    padding: 6px 16px; text-align: center; line-height: 1.1;
+  }
+  .logo-box .ct { font-size: 18px; font-weight: 700; color: #333; }
+  .logo-box .naksha { font-size: 14px; font-weight: 600; color: #555; }
+  .slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 900; color: #1a1a2e;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .sih-badge { display: flex; align-items: center; gap: 8px; }
+  .sih-badge .sih-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #fff;
+  }
+  .sih-badge .sih-text {
+    font-size: 12px; font-weight: 800; color: #1565c0;
+    line-height: 1.2; text-transform: uppercase;
+  }
+
+  /* ── Bottom Bar ── */
+  .bottom-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 28px;
+    background: linear-gradient(90deg, #0d47a1, #1976d2, #0d47a1);
+  }
+
+  /* ════════ SLIDE 1 ════════ */
+  .s1-body {
+    display: grid; grid-template-columns: 420px 1fr;
+    gap: 30px; padding: 20px 40px 50px;
+    height: calc(100% - 80px - 28px);
+  }
+  .arch-diagram {
+    background: linear-gradient(145deg, #e3f2fd 0%, #e8f5e9 50%, #fff3e0 100%);
+    border-radius: 16px; padding: 24px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 14px; align-content: center;
+  }
+  .arch-box {
+    border-radius: 12px; padding: 14px 10px; text-align: center;
+    font-size: 12px; font-weight: 600; color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .arch-box .icon { font-size: 22px; display: block; margin-bottom: 4px; }
+  .arch-box .label { font-size: 13px; font-weight: 700; }
+  .arch-box .sub { font-size: 10px; font-weight: 400; opacity: 0.9; margin-top: 2px; }
+  .ab-frontend { background: linear-gradient(135deg, #ff9800, #f57c00); }
+  .ab-api { background: linear-gradient(135deg, #42a5f5, #1e88e5); }
+  .ab-ai { background: linear-gradient(135deg, #66bb6a, #43a047); }
+  .ab-db { background: linear-gradient(135deg, #fdd835, #f9a825); color: #333; }
+  .ab-s3 { background: linear-gradient(135deg, #ab47bc, #8e24aa); }
+  .ab-redis { background: linear-gradient(135deg, #26c6da, #00acc1); }
+  .arch-center-label {
+    grid-column: 1 / -1; text-align: center;
+    font-size: 11px; font-weight: 700; color: #546e7a;
+    letter-spacing: 1px; text-transform: uppercase; padding: 4px 0;
+  }
+  .s1-bullets { display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  .bullet-card { display: flex; gap: 14px; align-items: flex-start; }
+  .bullet-icon {
+    flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #fff;
+  }
+  .bi-ai { background: linear-gradient(135deg, #66bb6a, #43a047); }
+  .bi-db { background: linear-gradient(135deg, #fdd835, #f9a825); }
+  .bi-deploy { background: linear-gradient(135deg, #42a5f5, #1e88e5); }
+  .bi-scale { background: linear-gradient(135deg, #ab47bc, #8e24aa); }
+  .bi-risk { background: linear-gradient(135deg, #ef5350, #e53935); }
+  .bullet-content h3 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
+  .bullet-content p { font-size: 13px; color: #444; line-height: 1.5; }
+
+  /* ════════ SLIDE 2 ════════ */
+  .s2-body {
+    padding: 16px 40px 50px;
+    height: calc(100% - 80px - 28px);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;
+  }
+  .stack-card {
+    border: 1.5px solid #e0e0e0; border-radius: 14px;
+    padding: 20px; background: #fafafa;
+  }
+  .stack-card .card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid;
+  }
+  .stack-card .card-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #fff;
+  }
+  .stack-card .card-title {
+    font-size: 14px; font-weight: 800; color: #1a1a2e;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .stack-card ul { list-style: none; }
+  .stack-card ul li {
+    font-size: 12.5px; color: #333; padding: 5px 0;
+    border-bottom: 1px dashed #eee;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .stack-card ul li:last-child { border-bottom: none; }
+  .stack-card ul li .tag {
+    font-size: 10px; font-weight: 700; padding: 2px 7px;
+    border-radius: 4px; color: #fff; flex-shrink: 0;
+  }
+  .sc-frontend .card-header { border-color: #ff9800; }
+  .sc-frontend .card-icon { background: #ff9800; }
+  .sc-frontend .tag { background: #ff9800; }
+  .sc-api .card-header { border-color: #1e88e5; }
+  .sc-api .card-icon { background: #1e88e5; }
+  .sc-api .tag { background: #1e88e5; }
+  .sc-ai .card-header { border-color: #43a047; }
+  .sc-ai .card-icon { background: #43a047; }
+  .sc-ai .tag { background: #43a047; }
+  .sc-db .card-header { border-color: #f9a825; }
+  .sc-db .card-icon { background: #f9a825; }
+  .sc-db .tag { background: #f9a825; }
+  .sc-queue .card-header { border-color: #00acc1; }
+  .sc-queue .card-icon { background: #00acc1; }
+  .sc-queue .tag { background: #00acc1; }
+  .sc-devops .card-header { border-color: #8e24aa; }
+  .sc-devops .card-icon { background: #8e24aa; }
+  .sc-devops .tag { background: #8e24aa; }
+
+  /* ════════ SLIDE 3 ════════ */
+  .s3-body {
+    padding: 16px 40px 50px;
+    height: calc(100% - 80px - 28px);
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .phase-row { display: flex; align-items: stretch; gap: 16px; flex: 1; }
+  .phase-card {
+    flex: 1; border-radius: 14px; padding: 18px 20px;
+    color: #fff; display: flex; flex-direction: column;
+  }
+  .phase-card .phase-num {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.8; margin-bottom: 4px;
+  }
+  .phase-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .phase-card .steps { font-size: 12px; line-height: 1.6; opacity: 0.95; }
+  .phase-card .steps span { display: block; margin-bottom: 3px; }
+  .phase-card .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(255,255,255,0.25); font-size: 10px; font-weight: 800;
+    margin-right: 5px;
+  }
+  .pc-ingest { background: linear-gradient(135deg, #1e88e5, #1565c0); }
+  .pc-queue { background: linear-gradient(135deg, #00acc1, #00838f); }
+  .pc-ai { background: linear-gradient(135deg, #43a047, #2e7d32); }
+  .pc-deliver { background: linear-gradient(135deg, #f57c00, #e65100); }
+  .phase-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: #90a4ae; flex-shrink: 0;
+  }
+
+  /* ════════ SLIDE 4 ════════ */
+  .s4-body {
+    padding: 16px 40px 50px;
+    height: calc(100% - 80px - 28px);
+    display: flex; flex-direction: column; gap: 18px; justify-content: center;
+  }
+  .risk-row {
+    display: grid; grid-template-columns: 260px 1fr;
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  }
+  .risk-label {
+    padding: 18px 20px; color: #fff;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .risk-label .r-icon { font-size: 28px; }
+  .risk-label .r-title { font-size: 15px; font-weight: 800; }
+  .risk-mitigation {
+    padding: 18px 24px; background: #f5f5f5;
+    font-size: 13.5px; color: #333; line-height: 1.6;
+    display: flex; align-items: center;
+  }
+  .rl-compute { background: linear-gradient(135deg, #ef5350, #c62828); }
+  .rl-upload { background: linear-gradient(135deg, #ff9800, #e65100); }
+  .rl-legal { background: linear-gradient(135deg, #ab47bc, #7b1fa2); }
+
+  @media print {
+    body { padding: 0; gap: 0; background: #fff; }
+    .slide { box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 – ARCHITECTURE OVERVIEW -->
+<div class="slide">
+  <div class="header">
+    <div class="logo-box"><span class="ct">CT</span><br/><span class="naksha">Naksha</span></div>
+    <div class="slide-title">Technical Approach</div>
+    <div class="sih-badge">
+      <div class="sih-icon">SIH</div>
+      <div class="sih-text">Smart India<br/>Hackathon<br/>2026</div>
+    </div>
+  </div>
+  <div class="s1-body">
+    <div class="arch-diagram">
+      <div class="arch-box ab-frontend"><span class="icon">🖥️</span><span class="label">Front‑end (SPA)</span><span class="sub">React + TypeScript</span></div>
+      <div class="arch-box ab-api"><span class="icon">🛰️</span><span class="label">API Gateway</span><span class="sub">Express + Fastify</span></div>
+      <div class="arch-center-label">↕ REST / WebSocket ↕</div>
+      <div class="arch-box ab-ai"><span class="icon">🧠</span><span class="label">AI Service</span><span class="sub">FastAPI + TorchServe</span></div>
+      <div class="arch-box ab-db"><span class="icon">🗄️</span><span class="label">Data Store</span><span class="sub">PostgreSQL + PostGIS</span></div>
+      <div class="arch-center-label">↕ gRPC / S3 API ↕</div>
+      <div class="arch-box ab-s3"><span class="icon">☁️</span><span class="label">Object Storage (S3)</span><span class="sub">Raw imagery &amp; exports</span></div>
+      <div class="arch-box ab-redis"><span class="icon">📦</span><span class="label">Task Queue</span><span class="sub">Redis / RQ · Workers</span></div>
+    </div>
+    <div class="s1-bullets">
+      <div class="bullet-card">
+        <div class="bullet-icon bi-ai">🧠</div>
+        <div class="bullet-content">
+          <h3>AI / Machine‑Learning Service</h3>
+          <p>A GPU‑powered AI pipeline that analyzes aerial imagery, detects and maps parcels/features, calculates confidence, and efficiently stores validated results.</p>
+        </div>
+      </div>
+      <div class="bullet-card">
+        <div class="bullet-icon bi-db">🗄️</div>
+        <div class="bullet-content">
+          <h3>Data Persistence</h3>
+          <p>Stores geospatial data, project metadata, imagery, exports, audit logs, and cached processing tasks using PostgreSQL/PostGIS, S3, and Redis.</p>
+        </div>
+      </div>
+      <div class="bullet-card">
+        <div class="bullet-icon bi-deploy">🚀</div>
+        <div class="bullet-content">
+          <h3>Deployment</h3>
+          <p>Automates containerized deployment, testing, monitoring, scaling, and quick rollbacks using Docker, Kubernetes, and GitHub Actions.</p>
+        </div>
+      </div>
+      <div class="bullet-card">
+        <div class="bullet-icon bi-scale">⚡</div>
+        <div class="bullet-content">
+          <h3>Scalability &amp; Performance</h3>
+          <p>Handles large imagery and many users through parallel processing, autoscaling, vector tiles, background jobs, and caching.</p>
+        </div>
+      </div>
+      <div class="bullet-card">
+        <div class="bullet-icon bi-risk">🛡️</div>
+        <div class="bullet-content">
+          <h3>Risks &amp; Mitigations</h3>
+          <p>Ensures reliable, secure, and compliant operation through autoscaling, resumable uploads, model monitoring, mandatory human review, and strong security controls.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+<!-- SLIDE 2 – TECHNOLOGY STACK -->
+<div class="slide">
+  <div class="header">
+    <div class="logo-box"><span class="ct">CT</span><br/><span class="naksha">Naksha</span></div>
+    <div class="slide-title">Technology Stack</div>
+    <div class="sih-badge">
+      <div class="sih-icon">SIH</div>
+      <div class="sih-text">Smart India<br/>Hackathon<br/>2026</div>
+    </div>
+  </div>
+  <div class="s2-body">
+    <div class="stack-card sc-frontend">
+      <div class="card-header"><div class="card-icon">🖥️</div><div class="card-title">Frontend (Client)</div></div>
+      <ul>
+        <li><span class="tag">Framework</span> React.js + TypeScript (SPA)</li>
+        <li><span class="tag">Styling</span> Tailwind CSS</li>
+        <li><span class="tag">Maps</span> Mapbox GL JS / Leaflet</li>
+        <li><span class="tag">State</span> Redux Toolkit / React Query</li>
+      </ul>
+    </div>
+    <div class="stack-card sc-api">
+      <div class="card-header"><div class="card-icon">🛰️</div><div class="card-title">API Gateway</div></div>
+      <ul>
+        <li><span class="tag">Runtime</span> Node.js</li>
+        <li><span class="tag">Framework</span> Express + Fastify</li>
+        <li><span class="tag">Auth</span> JWT (access + refresh tokens)</li>
+        <li><span class="tag">Validation</span> Zod schema checks</li>
+        <li><span class="tag">Real‑time</span> WebSocket notifications</li>
+      </ul>
+    </div>
+    <div class="stack-card sc-ai">
+      <div class="card-header"><div class="card-icon">🧠</div><div class="card-title">AI / ML Service</div></div>
+      <ul>
+        <li><span class="tag">Framework</span> Python · FastAPI · TorchServe</li>
+        <li><span class="tag">DL</span> PyTorch · ResNet‑34 U‑Net</li>
+        <li><span class="tag">CV</span> OpenCV · Canny · HoughLinesP</li>
+        <li><span class="tag">Geo</span> Rasterio · Shapely · GeoPandas</li>
+        <li><span class="tag">Algo</span> Watershed tessellation</li>
+      </ul>
+    </div>
+    <div class="stack-card sc-db">
+      <div class="card-header"><div class="card-icon">🗄️</div><div class="card-title">Data Persistence</div></div>
+      <ul>
+        <li><span class="tag">DB</span> PostgreSQL + PostGIS</li>
+        <li><span class="tag">Storage</span> Amazon S3 / MinIO</li>
+        <li><span class="tag">Spatial</span> GIST indexes on geometries</li>
+        <li><span class="tag">Audit</span> Immutable audit_log table</li>
+      </ul>
+    </div>
+    <div class="stack-card sc-queue">
+      <div class="card-header"><div class="card-icon">📦</div><div class="card-title">Task Queue</div></div>
+      <ul>
+        <li><span class="tag">Broker</span> Redis (in‑memory)</li>
+        <li><span class="tag">Queue</span> RQ / Celery workers</li>
+        <li><span class="tag">Purpose</span> Decouple AI inference</li>
+        <li><span class="tag">Status</span> Real‑time job tracking</li>
+      </ul>
+    </div>
+    <div class="stack-card sc-devops">
+      <div class="card-header"><div class="card-icon">🚀</div><div class="card-title">Deployment &amp; DevOps</div></div>
+      <ul>
+        <li><span class="tag">Container</span> Docker (multi‑stage)</li>
+        <li><span class="tag">Orchestr.</span> Kubernetes (K8s)</li>
+        <li><span class="tag">CI/CD</span> GitHub Actions</li>
+        <li><span class="tag">Monitor</span> Prometheus + Grafana</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+<!-- SLIDE 3 – DATA FLOW PIPELINE -->
+<div class="slide">
+  <div class="header">
+    <div class="logo-box"><span class="ct">CT</span><br/><span class="naksha">Naksha</span></div>
+    <div class="slide-title">Data Flow Pipeline</div>
+    <div class="sih-badge">
+      <div class="sih-icon">SIH</div>
+      <div class="sih-text">Smart India<br/>Hackathon<br/>2026</div>
+    </div>
+  </div>
+  <div class="s3-body">
+    <div class="phase-row">
+      <div class="phase-card pc-ingest">
+        <div class="phase-num">Phase 1</div>
+        <h3>Ingestion &amp; Storage</h3>
+        <div class="steps">
+          <span><span class="step-num">1</span>User uploads high‑res drone GeoTIFF via the React SPA.</span>
+          <span><span class="step-num">2</span>Node.js API Gateway uploads raw asset to S3 Object Storage.</span>
+          <span><span class="step-num">3</span>Project metadata recorded in PostgreSQL database.</span>
+        </div>
+      </div>
+      <div class="phase-arrow">▶</div>
+      <div class="phase-card pc-queue">
+        <div class="phase-num">Phase 2</div>
+        <h3>Async Job Queuing</h3>
+        <div class="steps">
+          <span><span class="step-num">1</span>API Gateway pushes a processing job (S3 URI) into the Redis Task Queue.</span>
+          <span><span class="step-num">2</span>Frontend switches to "Processing" state, listens via WebSocket / HTTP polling.</span>
+          <span><span class="step-num">3</span>System remains fully responsive during heavy AI computation.</span>
+        </div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-card pc-ai">
+        <div class="phase-num">Phase 3</div>
+        <h3>AI Inference &amp; Geospatial Extraction</h3>
+        <div class="steps">
+          <span><span class="step-num">1</span><b>Semantic Segmentation</b> — U‑Net predicts building footprints via TorchServe.</span>
+          <span><span class="step-num">2</span><b>Boundary Detection</b> — Canny Edge + HoughLinesP extract fences, walls, roads.</span>
+          <span><span class="step-num">3</span><b>Constrained Tessellation</b> — Watershed generates parcels bounded by physical barriers.</span>
+          <span><span class="step-num">4</span><b>Topology‑Aware Vectorization</b> — Shapely converts to GeoJSON with confidence scores.</span>
+        </div>
+      </div>
+      <div class="phase-arrow">▶</div>
+      <div class="phase-card pc-deliver">
+        <div class="phase-num">Phase 4</div>
+        <h3>Persistence &amp; Delivery</h3>
+        <div class="steps">
+          <span><span class="step-num">1</span>Vector shapes stored in PostGIS; static GeoJSON uploaded to S3.</span>
+          <span><span class="step-num">2</span>Python worker updates task status in Redis.</span>
+          <span><span class="step-num">3</span>API Gateway notifies the React frontend of completion.</span>
+          <span><span class="step-num">4</span>Frontend renders interactive cadastral overlay on the map.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+<!-- SLIDE 4 – RISKS & MITIGATIONS -->
+<div class="slide">
+  <div class="header">
+    <div class="logo-box"><span class="ct">CT</span><br/><span class="naksha">Naksha</span></div>
+    <div class="slide-title">Risks &amp; Mitigations</div>
+    <div class="sih-badge">
+      <div class="sih-icon">SIH</div>
+      <div class="sih-text">Smart India<br/>Hackathon<br/>2026</div>
+    </div>
+  </div>
+  <div class="s4-body">
+    <div class="risk-row">
+      <div class="risk-label rl-compute"><span class="r-icon">⚡</span><span class="r-title">Heavy Compute Loads</span></div>
+      <div class="risk-mitigation">Mitigated by <b>decoupling the AI pipeline</b> via Redis/RQ and using <b>Kubernetes</b> to auto‑scale GPU worker nodes during peak traffic. Spot instances provide cost‑efficient burst capacity.</div>
+    </div>
+    <div class="risk-row">
+      <div class="risk-label rl-upload"><span class="r-icon">📤</span><span class="r-title">Large File Uploads</span></div>
+      <div class="risk-mitigation">Mitigated by implementing <b>resumable, chunked uploads</b> via the Node.js Fastify API directly to S3. Progress tracking and retry logic ensure reliability over unreliable networks.</div>
+    </div>
+    <div class="risk-row">
+      <div class="risk-label rl-legal"><span class="r-icon">⚖️</span><span class="r-title">Legal / Accuracy Risks</span></div>
+      <div class="risk-mitigation">Mitigated by explicitly tagging boundaries with a <b>"confidence score" (High vs. Low)</b> in GeoJSON metadata, enforcing a <b>mandatory human‑in‑the‑loop review</b> before any parcel is approved. Full audit trail maintained.</div>
+    </div>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+</body>
+</html>

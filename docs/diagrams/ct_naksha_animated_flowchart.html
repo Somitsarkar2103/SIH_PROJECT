@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CT Naksha - Animated Flowchart</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .container {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    padding: 50px 40px;
+    max-width: 1200px;
+    width: 100%;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .header h1 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+  }
+  .header p {
+    color: #64748b;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* SVG Animations */
+  .flow-line {
+    fill: none;
+    stroke: #e2e8f0;
+    stroke-width: 5;
+    stroke-linecap: round;
+  }
+  .flow-line-animated {
+    fill: none;
+    stroke: #3b82f6;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 12, 16;
+    animation: flow 1.2s linear infinite;
+  }
+  @keyframes flow {
+    from { stroke-dashoffset: 28; }
+    to { stroke-dashoffset: 0; }
+  }
+  
+  /* Hover effects */
+  .node {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .node:hover {
+    transform: translateY(-8px);
+  }
+
+  /* Specific glowing pulse for the AI engine */
+  .pulse {
+    animation: pulse 2.5s infinite;
+  }
+  @keyframes pulse {
+    0% { filter: drop-shadow(0px 6px 10px rgba(16, 185, 129, 0.2)); }
+    50% { filter: drop-shadow(0px 6px 24px rgba(16, 185, 129, 0.7)); }
+    100% { filter: drop-shadow(0px 6px 10px rgba(16, 185, 129, 0.2)); }
+  }
+  
+  /* Text Styles */
+  .node-title { font-weight: 700; font-size: 18px; fill: #ffffff; }
+  .node-desc { font-weight: 400; font-size: 13px; fill: rgba(255,255,255,0.9); }
+  .arrow-label { font-weight: 600; font-size: 14px; fill: #64748b; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>CT Naksha Pipeline</h1>
+    <p>Animated Data Flow Architecture (Clean & Spaced)</p>
+  </div>
+  
+  <!-- The viewBox ensures everything scales nicely without being congested -->
+  <svg viewBox="0 0 1160 480" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Arrowheads -->
+      <marker id="arrowRight" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="0">
+        <path d="M 0 1 L 9 5 L 0 9 z" fill="#cbd5e1" />
+      </marker>
+      <marker id="arrowDown" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="90">
+        <path d="M 0 1 L 9 5 L 0 9 z" fill="#cbd5e1" />
+      </marker>
+      <marker id="arrowLeft" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="180">
+        <path d="M 0 1 L 9 5 L 0 9 z" fill="#cbd5e1" />
+      </marker>
+      
+      <!-- Vivid Gradients for Nodes -->
+      <linearGradient id="gradUpload" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient>
+      <linearGradient id="gradAPI" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#6d28d9"/></linearGradient>
+      <linearGradient id="gradQueue" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#0369a1"/></linearGradient>
+      <linearGradient id="gradAI" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+      <linearGradient id="gradDB" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#b45309"/></linearGradient>
+      <linearGradient id="gradMap" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#be185d"/></linearGradient>
+      
+      <!-- Standard Drop shadow -->
+      <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.12"/>
+      </filter>
+    </defs>
+
+    <!-- PATHS (Base + Animated) -->
+    
+    <!-- 1. Client to API (Right) -->
+    <path class="flow-line" d="M 280 100 L 415 100" marker-end="url(#arrowRight)"/>
+    <path class="flow-line-animated" d="M 280 100 L 405 100"/>
+    <text x="350" y="85" text-anchor="middle" class="arrow-label">GeoTIFF Upload</text>
+
+    <!-- 2. API to Queue (Right) -->
+    <path class="flow-line" d="M 690 100 L 825 100" marker-end="url(#arrowRight)"/>
+    <path class="flow-line-animated" d="M 690 100 L 815 100"/>
+    <text x="760" y="85" text-anchor="middle" class="arrow-label">Enqueue S3 URI</text>
+
+    <!-- 3. Queue to AI (Down) -->
+    <path class="flow-line" d="M 970 150 L 970 265" marker-end="url(#arrowDown)"/>
+    <path class="flow-line-animated" d="M 970 150 L 970 255"/>
+    <text x="985" y="215" class="arrow-label">Background Inference</text>
+
+    <!-- 4. AI to Database (Left) -->
+    <path class="flow-line" d="M 840 330 L 705 330" marker-end="url(#arrowLeft)"/>
+    <path class="flow-line-animated" d="M 840 330 L 715 330"/>
+    <text x="770" y="315" text-anchor="middle" class="arrow-label">Save GeoJSON</text>
+
+    <!-- 5. Database to Map (Left) -->
+    <path class="flow-line" d="M 430 330 L 295 330" marker-end="url(#arrowLeft)"/>
+    <path class="flow-line-animated" d="M 430 330 L 305 330"/>
+    <text x="360" y="315" text-anchor="middle" class="arrow-label">Fetch Parcels</text>
+
+    <!-- NODES (Using S-Curve pattern to avoid congestion) -->
+    
+    <!-- Box 1: UI -->
+    <g class="node" transform="translate(30, 50)">
+      <rect width="250" height="100" rx="14" fill="url(#gradUpload)" filter="url(#shadow)"/>
+      <text x="25" y="58" font-size="32">📤</text>
+      <text x="75" y="46" class="node-title">Client Frontend</text>
+      <text x="75" y="70" class="node-desc">React SPA (UI)</text>
+    </g>
+
+    <!-- Box 2: API -->
+    <g class="node" transform="translate(440, 50)">
+      <rect width="250" height="100" rx="14" fill="url(#gradAPI)" filter="url(#shadow)"/>
+      <text x="25" y="58" font-size="32">🌐</text>
+      <text x="75" y="46" class="node-title">API Gateway</text>
+      <text x="75" y="70" class="node-desc">Node.js + AWS S3</text>
+    </g>
+
+    <!-- Box 3: Queue -->
+    <g class="node" transform="translate(850, 50)">
+      <rect width="250" height="100" rx="14" fill="url(#gradQueue)" filter="url(#shadow)"/>
+      <text x="25" y="58" font-size="32">⏱️</text>
+      <text x="75" y="46" class="node-title">Task Queue</text>
+      <text x="75" y="70" class="node-desc">Redis Job Broker</text>
+    </g>
+
+    <!-- Box 4: AI Engine (With pulsating glow) -->
+    <g class="node pulse" transform="translate(850, 280)">
+      <rect width="250" height="100" rx="14" fill="url(#gradAI)"/>
+      <text x="25" y="58" font-size="32">🧠</text>
+      <text x="75" y="46" class="node-title">AI Engine</text>
+      <text x="75" y="70" class="node-desc">U-Net &amp; Vectorization</text>
+    </g>
+
+    <!-- Box 5: Database -->
+    <g class="node" transform="translate(440, 280)">
+      <rect width="250" height="100" rx="14" fill="url(#gradDB)" filter="url(#shadow)"/>
+      <text x="25" y="58" font-size="32">🗄️</text>
+      <text x="75" y="46" class="node-title">Data Store</text>
+      <text x="75" y="70" class="node-desc">PostGIS Database</text>
+    </g>
+
+    <!-- Box 6: Interactive Map -->
+    <g class="node" transform="translate(30, 280)">
+      <rect width="250" height="100" rx="14" fill="url(#gradMap)" filter="url(#shadow)"/>
+      <text x="25" y="58" font-size="32">🗺️</text>
+      <text x="75" y="46" class="node-title">Interactive Map</text>
+      <text x="75" y="70" class="node-desc">Mapbox GL (Render)</text>
+    </g>
+
+  </svg>
+</div>
+
+</body>
+</html>

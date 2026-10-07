@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0f7fa" />
+      <stop offset="100%" stop-color="#e8eaf6" />
+    </linearGradient>
+    <!-- Drop shadow filter -->
+    <filter id="dropshadow" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="3" dy="3" result="offOut"/>
+      <feMerge>
+        <feMergeNode in="offOut"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Arrowhead definitions (larger & colored) -->
+    <marker id="arrowOrange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0,12 6,0 12" fill="#ff9800" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0,12 6,0 12" fill="#42a5f5" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0,12 6,0 12" fill="#ab47bc" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0,12 6,0 12" fill="#66bb6a" />
+    </marker>
+    <marker id="arrowRed" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0,12 6,0 12" fill="#ef5350" />
+    </marker>
+    <marker id="arrowGray" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0,12 6,0 12" fill="#607d8b" />
+    </marker>
+    <marker id="arrowBrown" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0,12 6,0 12" fill="#8d6e63" />
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <!-- Component boxes with gradients -->
+  <g filter="url(#dropshadow)">
+    <rect x="60" y="300" width="200" height="80" rx="12" fill="url(#frontGrad)" stroke="#37474f" stroke-width="1"/>
+  </g>
+  <defs>
+    <linearGradient id="frontGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffcc80" />
+      <stop offset="100%" stop-color="#ffb74d" />
+    </linearGradient>
+  </defs>
+  <text x="160" y="340" font-size="16" fill="#212121" text-anchor="middle" dominant-baseline="middle">🖥️ Front‑end (React SPA)</text>
+
+  <g filter="url(#dropshadow)">
+    <rect x="320" y="300" width="220" height="80" rx="12" fill="url(#apiGrad)" stroke="#37474f" stroke-width="1"/>
+  </g>
+  <defs>
+    <linearGradient id="apiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#90caf9" />
+      <stop offset="100%" stop-color="#64b5f6" />
+    </linearGradient>
+  </defs>
+  <text x="430" y="340" font-size="16" fill="#212121" text-anchor="middle" dominant-baseline="middle">🛰️ API Gateway (Node/Express)</text>
+
+  <g filter="url(#dropshadow)">
+    <rect x="620" y="150" width="250" height="80" rx="12" fill="url(#aiGrad)" stroke="#37474f" stroke-width="1"/>
+  </g>
+  <defs>
+    <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a5d6a7" />
+      <stop offset="100%" stop-color="#81c784" />
+    </linearGradient>
+  </defs>
+  <text x="745" y="190" font-size="16" fill="#212121" text-anchor="middle" dominant-baseline="middle">🧠 AI Service (FastAPI + TorchServe)</text>
+
+  <g filter="url(#dropshadow)">
+    <rect x="620" y="350" width="250" height="80" rx="12" fill="url(#dbGrad)" stroke="#37474f" stroke-width="1"/>
+  </g>
+  <defs>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffe082" />
+      <stop offset="100%" stop-color="#ffca28" />
+    </linearGradient>
+  </defs>
+  <text x="745" y="390" font-size="16" fill="#212121" text-anchor="middle" dominant-baseline="middle">🗄️ Data Store (PostgreSQL / PostGIS)</text>
+
+  <g filter="url(#dropshadow)">
+    <rect x="940" y="150" width="220" height="80" rx="12" fill="url(#s3Grad)" stroke="#37474f" stroke-width="1"/>
+  </g>
+  <defs>
+    <linearGradient id="s3Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ce93d8" />
+      <stop offset="100%" stop-color="#ba68c8" />
+    </linearGradient>
+  </defs>
+  <text x="1050" y="190" font-size="16" fill="#212121" text-anchor="middle" dominant-baseline="middle">☁️ Object Storage (S3)</text>
+
+  <g filter="url(#dropshadow)">
+    <rect x="940" y="350" width="220" height="80" rx="12" fill="url(#queueGrad)" stroke="#37474f" stroke-width="1"/>
+  </g>
+  <defs>
+    <linearGradient id="queueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#80cbc4" />
+      <stop offset="100%" stop-color="#4db6ac" />
+    </linearGradient>
+  </defs>
+  <text x="1050" y="390" font-size="16" fill="#212121" text-anchor="middle" dominant-baseline="middle">📦 Task Queue (Redis / RQ)</text>
+
+  <!-- Arrows with thicker strokes and distinct colors -->
+  <!-- 1. Upload Orthomosaic -->
+  <path d="M260 340 H300" stroke="#ff9800" stroke-width="4" marker-end="url(#arrowOrange)" />
+  <text x="280" y="325" font-size="14" fill="#212121" text-anchor="middle">Upload Orthomosaic</text>
+
+  <!-- 2. API -> S3 -->
+  <path d="M540 340 C560 300 880 300 940 190" stroke="#42a5f5" stroke-width="4" fill="none" marker-end="url(#arrowBlue)" />
+  <text x="730" y="260" font-size="14" fill="#212121" text-anchor="middle">Store in S3</text>
+
+  <!-- 3. API -> Queue -->
+  <path d="M540 360 C560 400 880 400 940 390" stroke="#ab47bc" stroke-width="4" fill="none" marker-end="url(#arrowPurple)" />
+  <text x="730" y="430" font-size="14" fill="#212121" text-anchor="middle">Enqueue Job</text>
+
+  <!-- 4. Queue -> AI Service -->
+  <path d="M1050 390 V470 H730 V260" stroke="#66bb6a" stroke-width="4" fill="none" marker-end="url(#arrowGreen)" />
+  <text x="890" y="420" font-size="14" fill="#212121" text-anchor="middle">Trigger Inference</text>
+
+  <!-- 5. AI -> Data Store -->
+  <path d="M745 230 V350" stroke="#ef5350" stroke-width="4" fill="none" marker-end="url(#arrowRed)" />
+  <text x="770" y="300" font-size="14" fill="#212121" text-anchor="middle">Write Parcels</text>
+
+  <!-- 6. Front‑end fetch parcels (GET) -->
+  <path d="M430 340 V300 H600 V260" stroke="#607d8b" stroke-width="4" fill="none" marker-end="url(#arrowGray)" />
+  <text x="520" y="320" font-size="14" fill="#212121" text-anchor="middle">GET /parcels</text>
+
+  <!-- 7. Visualization arrow -->
+  <path d="M600 260 H720" stroke="#607d8b" stroke-width="4" fill="none" marker-end="url(#arrowGray)" />
+  <text x="660" y="250" font-size="14" fill="#212121" text-anchor="middle">Visualization</text>
+
+  <!-- 8. Export flow -->
+  <path d="M745 430 V470 H400 V420" stroke="#8d6e63" stroke-width="4" fill="none" marker-end="url(#arrowBrown)" />
+  <text x="570" y="460" font-size="14" fill="#212121" text-anchor="middle">Export GIS / Download</text>
+</svg>
